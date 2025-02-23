@@ -1,0 +1,67 @@
+@page "/search"
+@using Microsoft.Graph
+@using Microsoft.Graph.Models
+@inject GraphServiceClient GraphClient
+@inject NavigationManager Navigation
+@attribute [Authorize]
+
+<h3>Search Users</h3>
+
+<div class="form-group">
+    <label for="searchQuery">Search by display name:</label>
+    <input id="searchQuery" class="form-control" @bind="searchQuery" @bind:event="oninput" @onkeyup="SearchUsers" />
+</div>
+
+@if (users != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Display Name</th>
+                <th>Email</th>
+                <th>Job Title</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in users)
+            {
+                <tr>
+                    <td>@user.DisplayName</td>
+                    <td>@user.Mail</td>
+                    <td>@user.JobTitle</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private string searchQuery = "";
+    private IEnumerable<User>? users;
+
+    private async Task SearchUsers()
+    {
+        if (string.IsNullOrWhiteSpace(searchQuery))
+        {
+            users = null;
+            return;
+        }
+
+        try
+        {
+            var result = await GraphClient.Users
+                .GetAsync(requestConfiguration => {
+                    requestConfiguration.QueryParameters.Filter = $"startswith(displayName,'{searchQuery}')";
+                    requestConfiguration.QueryParameters.Select = new[] { "displayName", "mail", "jobTitle" };
+                    requestConfiguration.QueryParameters.Top = 10;
+                });
+
+            users = result?.Value;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error searching users: {ex.Message}");
+            users = null;
+        }
+    }
+}

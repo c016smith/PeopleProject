@@ -1,0 +1,24 @@
+@page "/"
+@using Microsoft.AspNetCore.Components.Authorization
+
+<AuthorizeView>
+    <Authorized>
+        <h1>Welcome, you are logged in!</h1>
+        <p>You can now access protected resources.</p>
+    </Authorized>
+    <NotAuthorized>
+        <h1>Welcome to PeopleProject</h1>
+        <p>Please log in to access the application.</p>
+        <button class="btn btn-primary" @onclick="Login">Log in</button>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    [Inject]
+    private NavigationManager Navigation { get; set; } = default!;
+
+    private void Login()
+    {
+        Navigation.NavigateTo("authentication/login", true);
+    }
+}

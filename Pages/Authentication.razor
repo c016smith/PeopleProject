@@ -1,0 +1,23 @@
+﻿@page "/authentication/{action}"
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+
+<ErrorBoundary>
+    <ChildContent>
+        <RemoteAuthenticatorView Action="@Action">
+            <LoggingIn>
+                <p>Logging you in...</p>
+            </LoggingIn>
+            <CompletingLoggingIn>
+                <p>Completing login...</p>
+            </CompletingLoggingIn>
+        </RemoteAuthenticatorView>
+    </ChildContent>
+    <ErrorContent Context="exception">
+        <p>Authentication error: @exception.Message</p>
+    </ErrorContent>
+</ErrorBoundary>
+
+@code {
+    [Parameter]
+    public required string Action { get; set; }
+}

@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+  <PropertyGroup>
+    <!-- Target .NET 8.0 for Blazor WASM packages (v8.0.7) -->
+    <TargetFramework>net8.0</TargetFramework>
+    <RuntimeIdentifier>browser-wasm</RuntimeIdentifier>
+    <RootNamespace>PeopleProject</RootNamespace>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Blazor WebAssembly packages (aligned to 8.0.7) -->
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.7" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="8.0.7" />
+    <PackageReference Include="Microsoft.Authentication.WebAssembly.Msal" Version="8.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="8.0.7" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
+
+    <!-- Microsoft Graph SDK -->
+    <PackageReference Include="Microsoft.Graph" Version="5.26.0" />
+  </ItemGroup>
+</Project>
