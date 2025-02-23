@@ -24,8 +24,6 @@ builder.Services.AddMsalAuthentication(options =>
     options.ProviderOptions.DefaultAccessTokenScopes.Add("profile");
     options.ProviderOptions.LoginMode = "redirect";
     options.ProviderOptions.Cache.CacheLocation = "sessionStorage";
-    options.ProviderOptions.InteractionMode = "redirect";
-    options.ProviderOptions.Authentication.ClientAuthenticationMethod = "none"; // Specify SPA authentication
 });
 
 // Configure MSGraph client
